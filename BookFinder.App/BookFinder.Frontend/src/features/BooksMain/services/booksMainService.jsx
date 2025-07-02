@@ -1,7 +1,10 @@
-import axios from "axios";
-import api from "./api";
+import api from "../../../services/api";
 
 export const fetchBooks = async () => {
-  const response = await axios.get(`${api}/merged`);
-  return response.data;
+  try {
+    const response = await api.get("/merged");
+    return response.data;
+  } catch {
+    return [];
+  }
 };
