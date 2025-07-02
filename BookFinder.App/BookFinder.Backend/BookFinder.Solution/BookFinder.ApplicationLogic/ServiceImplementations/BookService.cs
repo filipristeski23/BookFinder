@@ -6,6 +6,7 @@ using System.Formats.Asn1;
 using System.Globalization;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting;
+using static System.Reflection.Metadata.BlobBuilder;
 
 
 namespace Services.Services;
@@ -22,7 +23,6 @@ public class BookService : IBookService
     public async Task<List<BookDTO>> GetMergedBooks()
     {
         var dataDirectory = Path.Combine(_env.WebRootPath, "data");
-
         var jsonFilePath = Path.Combine(dataDirectory, "booksjson.json");
         var csvFilePath = Path.Combine(dataDirectory, "bookscsv.csv");
 
@@ -32,7 +32,6 @@ public class BookService : IBookService
         var mergedBooks = from json in jsonBooks
                           join csv in csvBooks on json.id equals csv.id into joined
                           from csv in joined.DefaultIfEmpty()
-
                           select new BookDTO
                           {
                               id = json.id,
@@ -45,10 +44,10 @@ public class BookService : IBookService
         return mergedBooks.OrderBy(b => b.author).ToList();
     }
 
-    private async Task<List<BookDTO>> ReadJsonBooksAsync(string path)
+    private async Task<List<JsonBookModel>> ReadJsonBooksAsync(string path)
     {
         var jsonContent = await File.ReadAllTextAsync(path);
-        return JsonSerializer.Deserialize<List<BookDTO>>(jsonContent)!;
+        return JsonSerializer.Deserialize<List<JsonBookModel>>(jsonContent)!;
     }
 
     private List<BookModel> ReadCsvBooks(string path)
@@ -57,5 +56,7 @@ public class BookService : IBookService
         using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
         return csv.GetRecords<BookModel>().ToList();
     }
+
+
 
 }
