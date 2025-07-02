@@ -1,12 +1,28 @@
-# React + Vite
+BookFinder is a simple app for searching books based on Titles, Ratings, Authors
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. To run this app you need the following installed on your machine
 
-Currently, two official plugins are available:
+- Latest Node.js version
+- Latest .NET 8 SDK installed
+- Visual studio code for frontend running
+- Visual studio for backend running
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. To run the backend
 
-## Expanding the ESLint configuration
+- Open the project root solution in visual studio
+- Via the terminal navigate to BookFinder.Presentation
+- Run the following commands one by one in the terminal
+- dotnet restore
+- dotnet watch run --launch-profile "https"
+- Now the app will run and pay attention to what port it started running on, you will need this later for the frontend.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. To run the frontend
+
+- Open the project folder in visual studio code
+- Find the folder named "services" inside the "src" folder, then inside find the api.js file, here you will see the backend route from earlier, replace this route with the one your backend is running on
+- Navigate via the terminal to BookFinder.Frontend
+- Run the following commands into the terminal one by one
+- npm install
+- npm run dev
+- Now your frontend is running aswell and should make the calls correctly to the backend
+- Test the app
